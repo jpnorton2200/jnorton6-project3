@@ -28,6 +28,7 @@ In your README report, include the stack canary value you added to main() as bot
 
 Value in my Canery: 0x434e5259  aka  "CNRY"
 
+Showing that the overflow protection works. The stored value in the canery is 4242424241 which is equivalent to BBBA. I added a warning message for my own sanity check to make sure that the overflow protection was working:
 ![image](https://github.com/user-attachments/assets/4529a16a-ca55-4742-b1e9-6c43beea41e2)
 
 
