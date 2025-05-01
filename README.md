@@ -31,6 +31,9 @@ Value in my Canery: 0x434e5259  aka  "CNRY"
 Showing that the overflow protection works. The stored value in the canery is 4242424241 which is equivalent to BBBA. I added a warning message for my own sanity check to make sure that the overflow protection was working:
 ![image](https://github.com/user-attachments/assets/4529a16a-ca55-4742-b1e9-6c43beea41e2)
 
+Before attempt of attack. Terminal entry will be AAAAAAAAAAAAAAAAAAAA|2, as the address of the sekret_fn is at |2 Nul Nul, aka 0x0000327c:
+
+![image](https://github.com/user-attachments/assets/5afc4aa4-596d-4a6b-adf1-221bc2905d74)
 
 Part 2: Bypassing the Stack Canary (40 pts)
 Using the results of the previous part, your task in this part is to conduct a buffer overflow attack against the canary protected program. For this, you will need to understand the relationship between the input string provided to gets() and the location in the stack where the stack canary is located (followed by the return address). You will need to modify your input string to include the stack canary, which will most likely be at the location in the input string where you used to put the address of sekret_fn. Then you will place the address of sekret_fn at the new location where it is located offset from the start of the vulnerable buffer. You should be able to make your main() return to sekret_fn.
