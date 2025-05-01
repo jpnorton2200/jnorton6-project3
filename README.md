@@ -36,7 +36,7 @@ Before attempt of attack. Terminal entry will be AAAAAAAAAAAAAAAAAAAA|2, as the 
 ![image](https://github.com/user-attachments/assets/5afc4aa4-596d-4a6b-adf1-221bc2905d74)
 
 
-after attack attempt:
+after attack attempt. in this case the value of 0x434e5259 is overwritten by |2 Nul, and leaves the last piece of the address 43 untouched. the canary value is not equal to its original and so the program exits:
 ![image](https://github.com/user-attachments/assets/2a3ae861-b191-45e1-83af-0e24f05f2bda)
 
 
