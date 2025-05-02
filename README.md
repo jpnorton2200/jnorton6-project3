@@ -29,16 +29,25 @@ Challenges:
 
 Time took:
 
+6 hours
+
 Documentation of functionality, bugs:
+
+no bugs. Functionality is project 2 complete, along with a canary to protect against stack overflow. If the user entry is larger than the allocated stack space, then the canary is filled with characters which do not match the original contents, which will end the program instead of executing the command or the garbage inside RA.
 
 Screenshots:
 
+(See Below)
+
 Miscellaneous notes:
 
+None.
 
 
 Part 0: Complete Project 2 (0 pts)
 If you did not complete Project 2, you need to complete it, as you need to have a correct implementation of Project 2 part 3 to succesfully complete Project 3.
+
+
 Part 1: The Stack Canary (40 pts)
 In Project 2 Part 3, you caused the provided project2.S to call the function named sekret_fn by exploiting a buffer overflow in gets() and overwriting the RA register of main(), the caller of gets(). Your job in this part is to implement a stack canary, which is a word of data that gets pushed on the stack just below the RA register. You will work from a created copy of your project 2 source code. Add the stack canary implementation to the main() function prolog. Choose a stack canary value that is a printable ASCII or UTF-8 string. You should allocate additional stack space and adjust the stack offsets for saving RA to do this. Then, in the main() function epilog, implement a check to compare the stack canary on the stack with the expected stack canary value that was stored in the prolog. If the values do not match, call the exit syscall through the following ecall:
 li a0, 0 li a7, __NR_EXIT ecall
