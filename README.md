@@ -31,6 +31,8 @@ AAAAAAAAAAAAAAAAAAAAYRNC|2
 
 Challenges:
 
+Just figuring out if the overflow protection was actually working, sometimes it is hard to tell just looking at the program. I eventually figured out how to do it and have a visual aid to tell me directly, on top of inspecting the registers.
+
 Time took:
 
 6 hours
