@@ -77,7 +77,7 @@ Using the results of the previous part, your task in this part is to conduct a b
 Include a copy of your input string in your README. Provide a screenshot of QtRVSim showing the values of the registers and the terminal window when you have successfully called sekret_fn.
 Assuming the attacker has a copy of your program, is there any stack canary value that you could use that would prevent the attack from succeeding, or that would make the attack more challenging? Briefly explain your reasoning.
 
-By entering the value AAAAAAAAAAAAAAAAAAAAYRNC|2, the canary has CNRY in it validating that there was apparently no overflow, and RA has |2 Nul Nul, which is the address of sekret_fn, which prints out the secret message
+By entering the value AAAAAAAAAAAAAAAAAAAAYRNC|2, the canary has CNRY in it validating that there was apparently no overflow, and RA has |2 Nul Nul, which is the address of sekret_fn, which prints out the secret message, despite the input string being longer than the allocated stack space.
 ![image](https://github.com/user-attachments/assets/0a2da1d8-a264-4aac-b871-e690806c01c1)
 
 It would be difficult to stop an attacker who has a copy of the program. Unless the canary was random every time. Otherwise the only other way is to use more obscure chars OR more nul values which do not have an ascii.
