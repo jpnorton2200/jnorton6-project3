@@ -11,7 +11,6 @@ main:
 	addi sp, sp, -28
 	sw ra, 24(sp)
 
-    ####################
     li t0, 0x434e5259
     sw t0, 20(sp)
 
@@ -25,7 +24,6 @@ main:
 	mv a0, sp
 	call puts
 
-    ####################
     lw t0, 20(sp)
     li t1, 0x434e5259
     bne t0, t1, canary_corrupted
@@ -35,7 +33,6 @@ main:
 	addi sp, sp, 28
 	ret
 
-    ####################
     canary_corrupted:
     la a0, warning_msg
     call puts
