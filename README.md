@@ -82,16 +82,3 @@ By entering the value AAAAAAAAAAAAAAAAAAAAYRNC|2, the canary has CNRY in it vali
 
 It would be difficult to stop an attacker who has a copy of the program. Unless the canary was random every time. Otherwise the only other way is to use more obscure chars OR more nul values which do not have an ascii.
 
-
-
-
-
-Part 3: Reporting and Logging (20 pts)
-Create the following documents for your submission.
-
-2.	Documentation of the versioning of your code as a separate pdf or doc file (call it logs.pdf or logs.doc). It is recommended that you use git source version control with a private repository. You may use any method available to you for hosting a private git repository, such as github, gitlab, or self-hosted.
-For example if you use github, create a directory called {USERNAME}-project3/. Initialize the repository with your (working) project2.S file, renamed as project3.S. Use a descriptive commit message (e.g. “import previous files"). As you code, you should save your work frequently by committing significant iterations in this repository. By the time you finalize your source code, I would like you to take a screenshot of the commit logs in your repository.
-
-Submission Instructions
-Please submit into Canvas a single compressed file (zip or tar) named {USERNAME}-project3 that contains one directory that contains your readme.pdf, your source code, and your logs. Your USERNAME should just be your UCCS username (email address without the @uccs.edu part).
-
