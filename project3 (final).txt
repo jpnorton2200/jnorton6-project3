@@ -1,0 +1,176 @@
+.globl main 
+.equ STDOUT, 1
+.equ STDIN, 0
+.equ __NR_READ, 63
+.equ __NR_WRITE, 64
+.equ __NR_EXIT, 93
+
+.text
+main:
+	# main() prolog
+	addi sp, sp, -28
+	sw ra, 24(sp)
+
+    ####################
+    li t0, 0x434e5259
+    sw t0, 20(sp)
+
+	# main() body
+	la a0, prompt
+	call puts
+
+	mv a0, sp
+	call gets
+
+	mv a0, sp
+	call puts
+
+    ####################
+    lw t0, 20(sp)
+    li t1, 0x434e5259
+    bne t0, t1, canary_corrupted
+
+	# main() epilog
+	lw ra, 24(sp)
+	addi sp, sp, 28
+	ret
+
+    ####################
+    canary_corrupted:
+    la a0, warning_msg
+    call puts
+    li a0, 0
+    li a7, __NR_EXIT
+    ecall
+
+.space 12288
+
+sekret_fn:
+	addi sp, sp, -4
+	sw ra, 0(sp)
+	la a0, sekret_data
+	call puts
+	lw ra, 0(sp)
+	addi sp, sp, 4
+	ret
+
+##############################################################
+# Add your implementation of puts() and gets() below here
+##############################################################
+
+getchar:
+    addi sp, sp, -16
+    sw ra, 12(sp)
+    
+    mv a1, sp                                    #buffer address address
+    li a2, 1                                     # Read 1 byte
+    li a7, __NR_READ
+    li a0, STDIN
+    ecall
+    beq a0, x0, getchar_eof
+    lb a0, 0(sp)
+    j getchar_return
+    
+getchar_eof:                                    #for when the end of string is reached
+    li a0, -1
+
+getchar_return:
+    lw ra, 12(sp)
+    addi sp, sp, 16
+    ret
+
+putchar:
+    addi sp, sp, -16
+    sw ra, 12(sp)
+    sw s0, 8(sp)
+    
+    mv s0, a0
+    mv a1, sp
+    sb a0, 0(sp)
+    li a2, 1
+    li a7, __NR_WRITE
+    li a0, STDOUT
+    ecall
+    
+    mv a0, s0
+    j putchar_return
+
+
+putchar_return:
+    lw s0, 8(sp)
+    lw ra, 12(sp)
+    addi sp, sp, 16
+    ret
+
+gets:
+    addi sp, sp, -16                        #move stack pointer down 16 bytes
+    sw ra, 12(sp)                           #store return address on stack at sp + 12
+    sw s0, 8(sp)                            #
+    sw s1, 4(sp)                            #
+    
+    mv s0, a0
+    mv s1, a0
+    
+gets_loop:
+    call getchar
+    blt a0, x0, gets_return
+    
+    sb a0, 0(s0)
+    addi s0, s0, 1
+    
+    li t0, 10
+    bne a0, t0, gets_loop
+    
+    addi s0, s0, -1
+    sb zero, 0(s0)
+    
+    sub a0, s0, s1
+    j gets_return
+    
+gets_return:
+    lw s1, 4(sp)
+    lw s0, 8(sp)
+    lw ra, 12(sp)
+    addi sp, sp, 16
+    ret
+
+puts:
+    addi sp, sp, -16
+    sw ra, 12(sp)
+    sw s0, 8(sp)
+    mv s0, a0
+    
+puts_loop:
+    lb a0, 0(s0)
+    beq a0, x0, puts_newline
+    
+    call putchar
+    
+    addi s0, s0, 1
+    j puts_loop
+    
+puts_newline:
+    li a0, 10
+    call putchar
+    
+    li a0, 0
+    j puts_return
+    
+
+
+puts_return:
+    lw s0, 8(sp)
+    lw ra, 12(sp)
+    addi sp, sp, 16
+    ret
+
+
+
+.data
+prompt:   .ascii  "Enter a message: "
+prompt_end:
+
+.word 0
+warning_msg: .ascii "Stack canary corrupted! Exiting...\n\0"
+sekret_data:
+.word 0x73564753, 0x67384762, 0x79393256, 0x3D514762, 0x0000000A
