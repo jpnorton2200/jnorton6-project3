@@ -24,9 +24,7 @@ main:
 	mv a0, sp
 	call puts
 
-    lw t0, 20(sp)
-    li t1, 0x434e5259
-    bne t0, t1, canary_corrupted
+    
 
 	# main() epilog
 	lw ra, 24(sp)
@@ -168,6 +166,8 @@ prompt:   .ascii  "Enter a message: "
 prompt_end:
 
 .word 0
+
 warning_msg: .ascii "Stack canary corrupted! Exiting...\n\0"
+
 sekret_data:
 .word 0x73564753, 0x67384762, 0x79393256, 0x3D514762, 0x0000000A
