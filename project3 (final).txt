@@ -24,7 +24,9 @@ main:
 	mv a0, sp
 	call puts
 
-    
+    lw t0, 20(sp)
+    li t1, 0x434e5259
+    bne t0, t1, canary_corrupted
 
 	# main() epilog
 	lw ra, 24(sp)
