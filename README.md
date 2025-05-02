@@ -44,6 +44,16 @@ Part 2: Bypassing the Stack Canary (40 pts)
 Using the results of the previous part, your task in this part is to conduct a buffer overflow attack against the canary protected program. For this, you will need to understand the relationship between the input string provided to gets() and the location in the stack where the stack canary is located (followed by the return address). You will need to modify your input string to include the stack canary, which will most likely be at the location in the input string where you used to put the address of sekret_fn. Then you will place the address of sekret_fn at the new location where it is located offset from the start of the vulnerable buffer. You should be able to make your main() return to sekret_fn.
 Include a copy of your input string in your README. Provide a screenshot of QtRVSim showing the values of the registers and the terminal window when you have successfully called sekret_fn.
 Assuming the attacker has a copy of your program, is there any stack canary value that you could use that would prevent the attack from succeeding, or that would make the attack more challenging? Briefly explain your reasoning.
+
+By entering the value AAAAAAAAAAAAAAAAAAAAYRNC|2, the canary has CNRY in it validating that there was apparently no overflow, and RA has |2 Nul Nul, which is the address of sekret_fn, which prints out the secret message
+![image](https://github.com/user-attachments/assets/0a2da1d8-a264-4aac-b871-e690806c01c1)
+
+
+
+
+
+
+
 Part 3: Reporting and Logging (20 pts)
 Create the following documents for your submission.
 1.	A readme.pdf document that includes
