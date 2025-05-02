@@ -2,7 +2,11 @@ JP Norton CS2160-002
 
 Pieces of my program:
 
+Main with canary, gets and puts functions, sekret function with sekret data, messages
+
 Resources reffered to:
+
+projects 1-2
 
 Test cases:
 
